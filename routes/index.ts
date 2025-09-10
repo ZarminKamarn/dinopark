@@ -9,6 +9,8 @@ router.use("/dinosaur", dinosaurRouter);
 
 router.use("/category", dinoCategoryRouter);
 
+router.use("/attraction", dinoCategoryRouter);
+
 router.use("/", globalRouter);
 
 export default router;
