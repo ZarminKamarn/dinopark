@@ -13,7 +13,7 @@ export class Booking{
         this.customer_id = customer_id;
     }
 
-    public fromRow(row): Booking{
+    public static fromRow(row): Booking{
         return new Booking(row.id, new Date(row.purchase_date), new Date(row.booking_date), row.park_id, row.customer_id);
     }
 

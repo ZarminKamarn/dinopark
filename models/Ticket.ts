@@ -9,7 +9,7 @@ export class Ticket{
         this.price = price;
     }
 
-    public fromRow(row): Ticket{
+    public static fromRow(row): Ticket{
         return new Ticket(row.id, row.title, row.price);
     }
 

@@ -9,7 +9,7 @@ export class TicketBooking{
         this.quantity = quantity;
     }
 
-    public fromRow(row): TicketBooking{
+    public static fromRow(row): TicketBooking{
         return new TicketBooking(row.ticket_id, row.booking_id, row.quantity);
     }
 

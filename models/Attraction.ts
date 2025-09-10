@@ -17,7 +17,7 @@ export class Attraction{
         this.park_id = park_id;
     }
 
-    public fromRow(row): Attraction{
+    public static fromRow(row): Attraction{
         return new Attraction(row.id, row.name, row.type, row.min_height, row.children_are_allowed, row.image, row.park_id);
     }
 

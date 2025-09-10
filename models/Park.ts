@@ -13,7 +13,7 @@ export class Park{
         this.closing_time = closing_time;
     }
 
-    public fromRow(row): Park{
+    public static fromRow(row): Park{
         return new Park(row.id, row.name, row.capacity, row.opening_time, row.closing_time);
     }
 

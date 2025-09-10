@@ -11,7 +11,7 @@ export class Customer{
         this.email = email;
     }
 
-    public fromRow(row): Customer{
+    public static fromRow(row): Customer{
         return new Customer(row.id, row.first_name, row.last_name, row.email);
     }
 

@@ -13,7 +13,7 @@ export class DinosaurCategory{
         this.type = type;
     }
 
-    public fromRow(row): DinosaurCategory{
+    public static fromRow(row): DinosaurCategory{
         return new DinosaurCategory(row.id, row.name, row.diet, row.description, row.type);
     }
 
