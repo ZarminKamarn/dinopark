@@ -1,7 +1,35 @@
-<%- include("../partials/head", {title: truc}) %>
+<%- include("../partials/head", {title: "truc"}) %>
 <%- include("../partials/header") %>
 
 <main>
+    <section>
+        <a href="/attraction">Retour</a>
+        <div>
+            <h2><%= attraction.getName() %></h2>
+            <div>
+                <p>Taille minimale : <%= attraction.getMinHeight() %> cm</p>
+                <% if(attraction.getChildrenAreAllowed()){ %>
+                    <p>Pour toute la famille</p>
+                <% } else { %>
+                    <p>Les enfants ne sont pas autorisés</p>
+                <% } %>
+                <p><%= attraction.getType() %></p>
+            </div>
+            <div>
+                <img src="<%= attraction.getImage() %>" alt="photo de l'attraction">
+            </div>
+        </div>
+    </section>
+    <section>
+        <h2>Les dinosaures de notre attraction</h2>
+        <ul>
+            <% dinosaurs.forEach((dino) => { %>
+            <li>
+                <%- include("../partials/browseCard", { data: dino, image: dino.getImage(), link: "/dinosaur" }) %>
+            </li>
+            <% }) %>
+        </ul>
+    </section>
 </main>
 
 <%- include("../partials/footer") %>

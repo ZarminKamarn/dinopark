@@ -1,15 +1,19 @@
-<%- include("../partials/head", {title: truc}) %>
+<%- include("../partials/head", {title: "truc"}) %>
 <%- include("../partials/header") %>
 
 <main>
     <section>
         <a href="/category">Retour</a>
-        <%- include("../partials/readCard", { data: category, image: "" } ) %>
+        <div>
+            <h2><%= category.getName() %></h2>
+            <p>Régime alimentaire : <%= category.getDiet() %></p>
+            <p><%= category.getDescription() %></p>
+        </div>
     </section>
     <section>
         <h2>Nos <%= category.getName() %></h2>
         <ul>
-            <% dinosaurs.forEach((dino) => {
+            <% dinosaurs.forEach((dino) => { %>
                 <li>
                     <%- include("../partials/browseCard", { link: "/dinosaur", image: dino.getImage(), data: dino }) %>
                 </li>

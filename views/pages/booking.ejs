@@ -1,9 +1,47 @@
-<%- include("../partials/head", {title: Réservation}) %>
+<%- include("../partials/head", {title: "Réservation"}) %>
 <%- include("../partials/header") %>
 
 <main>
     <h2>Réservation</h2>
-    <form action=""></form>
+    <form action="/booking" method="post">
+        <div>
+            <label for="park">Parc</label>
+            <select name="park" id="park" required>
+                <option value="">Sélectionner votre parc</option>
+                <% parks.forEach((park) => { %>
+                    <option value="<%= park.getId() %>"><%= park.getName() %></option>
+                <% }) %>
+            </select>
+        </div>
+        <div>
+            <label for="ticket1">Nombre de billets</label>
+            <% tickets.forEach((ticket) => { %>
+                <div>
+                    <input type="number" name="ticket" id="ticket<%= ticket.getId() %>" required>
+                    <p>Billet(s) <%= ticket.getTitle() %> - <%= ticket.getPrice() %> € unité</p>
+                </div>
+            <% }) %>
+        </div>
+        <div>
+            <label for="bookingDate">Date du billet</label>
+            <input type="date" name="bookingDate" id="bookingDate" required>
+        </div>
+        <div>
+            <div>
+                <label for="lastName">Nom</label>
+                <input type="text" name="lastName" id="lastName" required>
+            </div>
+            <div>
+                <label for="firstName">Prénom</label>
+                <input type="text" name="firstName" id="firstName" required>
+            </div>
+        </div>
+        <div>
+            <label for="email">Mail</label>
+            <input type="email" name="email" id="email" required>
+        </div>
+        <button type="submit">Valider</button>
+    </form>
 </main>
 
 <%- include("../partials/footer") %>

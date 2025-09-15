@@ -4,7 +4,7 @@
 <main>
     <h2>Nos dinosaures</h2>
     <ul>
-        <% dinosaures.forEach((dinosaur) => { %>
+        <% dinosaurs.forEach((dinosaur) => { %>
             <li>
                 <%- include("../partials/browseCard", { data: dinosaur, image: dinosaur.getImage(), link: "/dinosaur" }) %>
             </li>

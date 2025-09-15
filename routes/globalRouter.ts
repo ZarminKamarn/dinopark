@@ -13,4 +13,9 @@ globalRouter.get("/easter-egg", (request, response) => {
     globalController.easterEgg();
 });
 
+globalRouter.get("/login", (request, response) => {
+    const globalController = new GlobalController(request, response);
+    globalController.login();
+});
+
 export default globalRouter;

@@ -3,9 +3,9 @@ export class Booking{
     private purchase_date: Date;
     private booking_date: Date;
     private park_id: number;
-    private customer_id: number;
+    private customer_id: number | null;
 
-    constructor(id: number | null, purchase_date: Date, booking_date: Date, park_id: number, customer_id: number){
+    constructor(id: number | null, purchase_date: Date, booking_date: Date, park_id: number, customer_id: number | null){
         this.id = id;
         this.purchase_date = purchase_date;
         this.booking_date = booking_date;

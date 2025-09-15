@@ -1,7 +1,19 @@
-<%- include("../partials/head", {title: truc}) %>
+<%- include("../partials/head", {title: "truc"}) %>
 <%- include("../partials/header") %>
 
 <main>
+    <section>
+        <a href="/dinosaur">Retour</a>
+        <div>
+            <h2><%= dinosaur.getName() %></h2>
+            <div>
+                <p><%= dinosaur.getDescription() %></p>
+                <% if(dinosaur.getImage()) { %>
+                    <img src="<%= dinosaur.getImage() %>" alt="photo du dinosaure">
+                <% } %>
+            </div>
+        </div>
+    </section>
 </main>
 
 <%- include("../partials/footer") %>

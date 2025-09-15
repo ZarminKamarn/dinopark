@@ -42,7 +42,7 @@ export abstract class Repository {
                     return Dinosaur.fromRow(row);
                 }
 
-                if(table === "dinosaur_category"){
+                if(table === "dinosaurcategory"){
                     return DinosaurCategory.fromRow(row);
                 }
 
@@ -51,7 +51,7 @@ export abstract class Repository {
                 }
 
                 if(table === "ticket"){
-                    return Park.fromRow(row);
+                    return Ticket.fromRow(row);
                 }
 
                 if(table === "ticket_booking"){
@@ -91,7 +91,7 @@ export abstract class Repository {
                 return Dinosaur.fromRow(result.rows[0]) as T;
             }
 
-            if(table === "dinosaur_category"){
+            if(table === "dinosaurcategory"){
                 return DinosaurCategory.fromRow(result.rows[0]) as T;
             }
 
@@ -100,7 +100,7 @@ export abstract class Repository {
             }
 
             if(table === "ticket"){
-                return Park.fromRow(result.rows[0]) as T;
+                return Ticket.fromRow(result.rows[0]) as T;
             }
 
             if(table === "ticket_booking"){

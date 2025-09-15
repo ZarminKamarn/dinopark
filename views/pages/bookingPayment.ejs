@@ -1,9 +1,33 @@
-<%- include("../partials/head", {title: Réservation}) %>
+<%- include("../partials/head", {title: "Réservation"}) %>
 <%- include("../partials/header") %>
 
 <main>
     <h2>Paiement</h2>
-    <form action=""></form>
+    <section>
+        <p>Prix total: <%= price %></p>
+        <a href="/booking">Retour</a>
+    </section>
+    <form action="/booking/payment" method="post">
+        <div>
+            <label for="cardNumber">Numéro de carte</label>
+            <input type="text" name="cardNumber" id="cardNumber">
+        </div>
+        <div>
+            <div>
+                <label for="CVV">CVV</label>
+                <input type="text" name="CVV" id="CVV">
+            </div>
+            <div>
+                <label for="expiryDate">Date d'expiration</label>
+                <input type="text" name="expiryDate" id="expiryDate">
+            </div>
+        </div>
+        <div>
+            <label for="fullName">Nom complet</label>
+            <input type="text" name="fullName" id="fullName">
+        </div>
+        <button type="submit">Payer</button>
+    </form>
 </main>
 
 <%- include("../partials/footer") %>

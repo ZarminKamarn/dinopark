@@ -15,7 +15,7 @@ export class GlobalController extends Controller {
     }
 
     public login(){
-    this.response.send("Log in");
+    this.response.render("pages/login");
     }
 
     public stats(){
