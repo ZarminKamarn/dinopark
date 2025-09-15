@@ -2,6 +2,20 @@
 <%- include("../partials/header") %>
 
 <main>
+    <section>
+        <a href="/category">Retour</a>
+        <%- include("../partials/readCard", { data: category, image: "" } ) %>
+    </section>
+    <section>
+        <h2>Nos <%= category.getName() %></h2>
+        <ul>
+            <% dinosaurs.forEach((dino) => {
+                <li>
+                    <%- include("../partials/browseCard", { link: "/dinosaur", image: dino.getImage(), data: dino }) %>
+                </li>
+            <% }) %>
+        </ul>
+    </section>
 </main>
 
 <%- include("../partials/footer") %>

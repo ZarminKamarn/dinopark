@@ -8,4 +8,9 @@ dinosaurRouter.get("/:id" ,(request, response) => {
     dinosaurController.dinosaur();
 });
 
+dinosaurRouter.get("/" ,(request, response) => {
+    const dinosaurController = new DinosaurController(request, response);
+    dinosaurController.dinosaurs();
+});
+
 export default dinosaurRouter;

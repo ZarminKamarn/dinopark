@@ -1,7 +1,20 @@
-<%- include("../partials/head", {title: Attractions}) %>
+<%- include("../partials/head", {title: "Attractions"}) %>
 <%- include("../partials/header") %>
 
 <main>
+    <% if (park) { %>
+        <h2>Nos attractions du parc <%= park.getName() %></h2>
+    <% } else { %>
+        <h2>Nos attractions</h2>
+    <% } %>
+    
+    <ul>
+        <% attractions.forEach((attraction) => { %>
+            <li>
+                <%- include("../partials/browseCard", { data: attraction, image: attraction.getImage(), link: "/attraction" }) %>
+            </li>
+        <% }) %>
+    </ul>
 </main>
 
 <%- include("../partials/footer") %>

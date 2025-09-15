@@ -9,8 +9,8 @@ export class Park{
         this.id = id;
         this.name = name;
         this.capacity = capacity;
-        this.opening_time = opening_time;
-        this.closing_time = closing_time;
+        this.opening_time = opening_time.slice(0,5);
+        this.closing_time = closing_time.slice(0,5);
     }
 
     public static fromRow(row): Park{

@@ -21,7 +21,7 @@ export class Dinosaur{
         return this.id;
     }
 
-    public getNickname(): string{
+    public getName(): string{
         return this.nickname;
     }
 
