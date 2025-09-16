@@ -27,6 +27,8 @@ export class BookingController extends Controller {
         this.request.session.booking = booking;
         this.request.session.customer = customer;
         this.request.session.tickets = tickets;
+
+        this.response.redirect("/booking/payment");
     }
 
     public payment(){
