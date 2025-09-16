@@ -7,7 +7,10 @@ import { Customer } from "../models/Customer";
 import { Park } from "../models/Park";
 import { Ticket } from "../models/Ticket";
 import { TicketBooking } from "../models/TicketBooking";
+import { BookingRepository } from "../repositories/BookingRepository";
+import { CustomerRepository } from "../repositories/CustomerRepository";
 import { ParkRepository } from "../repositories/ParkRepository"
+import { TicketBookingRepository } from "../repositories/TicketBookingRepository";
 import { TicketRepository } from "../repositories/TicketRepository"
 
 export class BookingController extends Controller {
@@ -22,10 +25,6 @@ export class BookingController extends Controller {
     }
 
     public bookingReceived(){
-        const tickes: Array<TicketBooking> = this.request.body.ticket.map((ticketNumber: string, id: number) => {
-            return new TicketBooking(id+1, null, parseInt(ticketNumber));
-        });
-
         const booking: BookingRow = {
             id: null,
             booking_date: new Date().toString(),
@@ -56,17 +55,25 @@ export class BookingController extends Controller {
         this.response.render("pages/bookingPayment", {price: 25});
     }
 
-    public paymentReceived(){
-        this.response.redirect("/booking/confirmation");
+    public async paymentReceived(){
+        if(this.request.session.customer && this.request.session.booking && this.request.session.tickets){
+            const customerRepository = new CustomerRepository();
+            const customerId: number = await customerRepository.createCustomer(this.request.session.customer);
+
+            const bookingRepository = new BookingRepository();
+            const bookingId: number = await bookingRepository.createBooking(this.request.session.booking, customerId);
+
+            const ticketBookingRepository = new TicketBookingRepository();
+            this.request.session.tickets.forEach((ticket) => {
+                ticketBookingRepository.createTicketBooking(ticket, bookingId);
+            });
+
+            this.response.redirect("/booking/confirmation");
+        }
+        this.response.redirect("/booking");
     }
 
-    public async validation(){
-        const parkRepository = new ParkRepository();
-        const parks: Array<Park> = await parkRepository.findAll<Park>("park");
-
-        const ticketRepository = new TicketRepository();
-        const tickets: Array<Ticket> = await ticketRepository.findAll<Ticket>("ticket");
-        
+    public async validation(){        
         if(this.request.session.booking && this.request.session.tickets){
             const booking: Booking = Booking.fromRow(this.request.session.booking);
             const tickets = this.request.session.tickets.map((ticket) => {
@@ -84,7 +91,7 @@ export class BookingController extends Controller {
             return;
         }
 
-        this.response.render("pages/booking", { parks, tickets });
+        this.response.redirect("/booking");
     }
 
     private async calculateTicketsPrice(ticketBookings: Array<TicketBooking>): Promise<number>{
@@ -93,16 +100,13 @@ export class BookingController extends Controller {
 
         let sum = 0;
         ticketBookings.forEach((ticketBooking) => {
-            console.log(ticketBooking);
             const ticket: Ticket | undefined = tickets.find((aTicket) => {
-                console.log(aTicket);
                 return aTicket.getId() === ticketBooking.getTicketId();
             })
             if(ticket){
                 sum += ticket.getPrice() * ticketBooking.getQuantity();
             }
         });
-        console.log(sum);
         return sum;
     }
 }
