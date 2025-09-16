@@ -10,21 +10,41 @@
     <form action="/booking/payment" method="post">
         <div>
             <label for="cardNumber">Numéro de carte</label>
-            <input type="text" name="cardNumber" id="cardNumber">
+            <input type="text" name="cardNumber" id="cardNumber" value="<%= data?.cardNumber || '' %>" required>
+            <% if (errors?.cardNumber?.errors?.[0]) { %>
+                <small id="title-error" class="error-msg">
+                    <%= errors.cardNumber.errors[0] %>
+                </small>
+            <% } %>
         </div>
         <div>
             <div>
                 <label for="CVV">CVV</label>
-                <input type="text" name="CVV" id="CVV">
+                <input type="text" name="CVV" id="CVV" value="<%= data?.CVV || '' %>" required>
+                <% if (errors?.CVV?.errors?.[0]) { %>
+                    <small id="title-error" class="error-msg">
+                        <%= errors.CVV.errors[0] %>
+                    </small>
+                <% } %>
             </div>
             <div>
                 <label for="expiryDate">Date d'expiration</label>
-                <input type="text" name="expiryDate" id="expiryDate">
+                <input type="text" name="expiryDate" id="expiryDate" value="<%= data?.expiryDate || '' %>" required>
+                <% if (errors?.expiryDate?.errors?.[0]) { %>
+                    <small id="title-error" class="error-msg">
+                        <%= errors.expiryDate.errors[0] %>
+                    </small>
+                <% } %>
             </div>
         </div>
         <div>
             <label for="fullName">Nom complet</label>
-            <input type="text" name="fullName" id="fullName">
+            <input type="text" name="fullName" id="fullName" value="<%= data?.fullName || '' %>" required>
+            <% if (errors?.fullName?.errors?.[0]) { %>
+                <small id="title-error" class="error-msg">
+                    <%= errors.fullName.errors[0] %>
+                </small>
+            <% } %>
         </div>
         <button type="submit">Payer</button>
     </form>

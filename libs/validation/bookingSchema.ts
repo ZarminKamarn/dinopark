@@ -2,17 +2,22 @@ import z, { email } from "zod";
 
 export const paymentSchema = z.object({
     cardNumber: z.string().refine(cardNumberChecker, "Le numéro de carte est invalide"),
-    CVV: z.coerce.number("Le CVV ne contient que des nombres").min(3, "Le CVV fait 3 caractères minimum").max(4, "Le CVV fait 3 caractères minimum"),
-    expiryDate: z.string().length(7, "La date d'expiration est invalide").refine(expiryDateFormatChecker, "La date d'expiration est invalide").refine(expiryDateChecker, "La date d'expiration est passé"),
+    CVV: z.string().min(3, "Le CVV fait 3 caractères minimum").max(4, "Le CVV fait 4 caractères maximum").refine(CVVChecker, "Seuls les chiffres sont autorisés"),
+    expiryDate: z.string().length(7, "La date d'expiration est invalide").refine(expiryDateFormatChecker, "La date d'expiration est invalide").refine(expiryDateChecker, "La date d'expiration est passée"),
     fullName: z.string().min(3, "Le nom est invalide")
 });
 
-function cardNumberChecker(cardNumber: string){
+function CVVChecker(CVV: string): boolean{
+  const regex: RegExp = /[0-9]+/;
+  return regex.test(CVV);
+}
+
+function cardNumberChecker(cardNumber: string): boolean{
     const regex: RegExp = /[0-9\- ]/;
     if(!regex.test(cardNumber)){
         return false;
     }
-    cardNumber.replaceAll(/[^0-9]/, "");
+    cardNumber = cardNumber.replaceAll(/[^0-9]/g, "");
 
     // Algo de Luhn
     let sum: number = 0;
@@ -35,12 +40,12 @@ function cardNumberChecker(cardNumber: string){
     return sum % 10 == 0;
 }
 
-function expiryDateFormatChecker(expiryDate: string){
+function expiryDateFormatChecker(expiryDate: string): boolean{
     const regex: RegExp = /[0-3][0-9]\/[0-9]{4}/;
     return regex.test(expiryDate);
 }
 
-function expiryDateChecker(expiryDate: string){
+function expiryDateChecker(expiryDate: string): boolean{
     const month: number = parseInt(expiryDate.slice(0, 2));
     const year: number = parseInt(expiryDate.slice(3));
 

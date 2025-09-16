@@ -1,7 +1,9 @@
+import z from "zod";
 import { Controller } from "../libs/Controller";
 import { BookingRow } from "../libs/types/BookingRow";
 import { CustomerRow } from "../libs/types/CustomerRow";
 import { TicketBookingRow } from "../libs/types/TicketBookingRow";
+import { paymentSchema } from "../libs/validation/bookingSchema";
 import { Booking } from "../models/Booking";
 import { Customer } from "../models/Customer";
 import { Park } from "../models/Park";
@@ -51,11 +53,29 @@ export class BookingController extends Controller {
         this.response.redirect("/booking/payment");
     }
 
-    public payment(){
-        this.response.render("pages/bookingPayment", {price: 25});
+    public async payment(){
+        const tickets: Array<TicketBooking> = this.request.session.tickets.map((ticket) => {
+            return TicketBooking.fromRow(ticket);
+        });
+        const price = await this.calculateTicketsPrice(tickets);
+
+        this.response.render("pages/bookingPayment", { price, errors: "", data: "" });
     }
 
     public async paymentReceived(){
+        const result = paymentSchema.safeParse(this.request.body);
+
+        const tickets: Array<TicketBooking> = this.request.session.tickets.map((ticket) => {
+            return TicketBooking.fromRow(ticket);
+        });
+        const price = await this.calculateTicketsPrice(tickets);
+
+        if(!result.success){
+            const errors = z.treeifyError(result.error);
+            this.response.status(400).render("pages/bookingPayment", { price, errors: errors.properties, data: this.request.body });
+            return;
+        }
+
         if(this.request.session.customer && this.request.session.booking && this.request.session.tickets){
             const customerRepository = new CustomerRepository();
             const customerId: number = await customerRepository.createCustomer(this.request.session.customer);
@@ -69,6 +89,7 @@ export class BookingController extends Controller {
             });
 
             this.response.redirect("/booking/confirmation");
+            return;
         }
         this.response.redirect("/booking");
     }
@@ -76,9 +97,9 @@ export class BookingController extends Controller {
     public async validation(){        
         if(this.request.session.booking && this.request.session.tickets){
             const booking: Booking = Booking.fromRow(this.request.session.booking);
-            const tickets = this.request.session.tickets.map((ticket) => {
+            const tickets: Array<TicketBooking> = this.request.session.tickets.map((ticket) => {
                 return TicketBooking.fromRow(ticket);
-            })
+            });
 
             const parkRepository = new ParkRepository();
             const park: Park | null = await parkRepository.findById<Park>("park", booking.getParkId().toString());
