@@ -11,9 +11,7 @@ export class AdminRepository extends Repository{
         try {
             const result = await this.pool.query(query);
 
-            console.log(result.rows[0]);
-
-            return 1;
+            return parseInt(result.rows[0].exist);
         } catch (error) {
             return -1;
         }

@@ -4,13 +4,29 @@
 <main>
     <h2>Se connecter</h2>
     <form action="/login" method="post">
+        <% if (loginError === true) { %>
+            <small id="title-error" class="error-msg">Identifiants incorrects</small>
+        <% } %>
+        <% if (databaseError === true) { %>
+            <small id="title-error" class="error-msg">Un problème est survenu</small>
+        <% } %>
         <div>
             <label for="email">Mail</label>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" value="<%= data?.email || '' %>" required>
+            <% if (errors?.email?.errors?.[0]) { %>
+                <small id="title-error" class="error-msg">
+                    <%= errors.email.errors[0] %>
+                </small>
+            <% } %>
         </div>
         <div>
             <label for="password">Mot de passe</label>
             <input type="password" id="password" name="password" required>
+            <% if (errors?.password?.errors?.[0]) { %>
+                <small id="title-error" class="error-msg">
+                    <%= errors.password.errors[0] %>
+                </small>
+            <% } %>
         </div>
         <button type="submit">Valider</button>
     </form>
