@@ -1,3 +1,5 @@
+import { CustomerRow } from "../libs/types/CustomerRow";
+
 export class Customer{
     private id: number | null;
     private first_name: string;
@@ -11,7 +13,7 @@ export class Customer{
         this.email = email;
     }
 
-    public static fromRow(row): Customer{
+    public static fromRow(row: CustomerRow): Customer{
         return new Customer(row.id, row.first_name, row.last_name, row.email);
     }
 

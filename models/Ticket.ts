@@ -1,3 +1,5 @@
+import { TicketRow } from "../libs/types/TicketRow";
+
 export class Ticket{
     private id: number | null;
     private title: string;
@@ -9,7 +11,7 @@ export class Ticket{
         this.price = price;
     }
 
-    public static fromRow(row): Ticket{
+    public static fromRow(row: TicketRow): Ticket{
         return new Ticket(row.id, row.title, row.price);
     }
 

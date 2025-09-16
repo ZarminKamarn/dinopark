@@ -1,4 +1,5 @@
 import { Repository } from "../libs/Repository";
+import { DinosaurRow } from "../libs/types/DinosaurRow";
 import { Dinosaur } from "../models/Dinosaur";
 
 export class DinosaurRepository extends Repository{
@@ -12,7 +13,7 @@ export class DinosaurRepository extends Repository{
         try {
             const result = await this.pool.query(query);
 
-            const dinos = result.rows.map((row) => {
+            const dinos = result.rows.map((row: DinosaurRow) => {
                 return Dinosaur.fromRow(row);
             })
 

@@ -23,6 +23,6 @@ export class DinoCategoryController extends Controller {
             return;
         }
 
-        this.response.render("errors/404");
+        this.response.status(404).render("errors/404");
     }
 }

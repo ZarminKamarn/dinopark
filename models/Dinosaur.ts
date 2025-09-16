@@ -1,3 +1,5 @@
+import { DinosaurRow } from "../libs/types/DinosaurRow"
+
 export class Dinosaur{
     private id: number | null;
     private nickname: string;
@@ -13,7 +15,7 @@ export class Dinosaur{
         this.category_id = category_id;
     }
 
-    public static fromRow(row): Dinosaur{
+    public static fromRow(row: DinosaurRow): Dinosaur{
         return new Dinosaur(row.id, row.nickname, row.description, row.image, row.category_id);
     }
 

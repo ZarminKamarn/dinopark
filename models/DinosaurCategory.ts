@@ -1,3 +1,6 @@
+import { DinosaurCategoryRow } from "../libs/types/DinosaurCategoryRow"
+
+
 export class DinosaurCategory{
     private id: number | null;
     private name: string;
@@ -13,7 +16,7 @@ export class DinosaurCategory{
         this.type = type;
     }
 
-    public static fromRow(row): DinosaurCategory{
+    public static fromRow(row: DinosaurCategoryRow): DinosaurCategory{
         return new DinosaurCategory(row.id, row.name, row.diet, row.description, row.type);
     }
 

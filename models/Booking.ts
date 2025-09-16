@@ -1,3 +1,5 @@
+import { BookingRow } from "../libs/types/BookingRow";
+
 export class Booking{
     private id: number | null;
     private purchase_date: Date;
@@ -13,7 +15,7 @@ export class Booking{
         this.customer_id = customer_id;
     }
 
-    public static fromRow(row): Booking{
+    public static fromRow(row: BookingRow): Booking{
         return new Booking(row.id, new Date(row.purchase_date), new Date(row.booking_date), row.park_id, row.customer_id);
     }
 
@@ -33,7 +35,17 @@ export class Booking{
         return this.park_id;
     }
 
-    public getCustomerId(): number{
+    public getCustomerId(): number | null{
         return this.customer_id;
+    }
+
+    public getReadableBookingDate(): string{
+        const months = [
+            "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
+        ]
+        const day: number = this.booking_date.getDate();
+        const month: string = months[this.booking_date.getMonth()];
+        const year: number = this.booking_date.getFullYear();
+        return `${day.toString()} ${month} ${year.toString()}`;
     }
 }

@@ -1,3 +1,5 @@
+import { AttractionRow } from "../libs/types/attractionRow";
+
 export class Attraction{
     private id: number | null;
     private name: string;
@@ -17,7 +19,7 @@ export class Attraction{
         this.park_id = park_id;
     }
 
-    public static fromRow(row): Attraction{
+    public static fromRow(row:AttractionRow): Attraction{
         return new Attraction(row.id, row.name, row.type, row.min_height, row.children_are_allowed, row.image, row.park_id);
     }
 

@@ -1,4 +1,5 @@
 import { Repository } from "../libs/Repository";
+import { AttractionRow } from "../libs/types/attractionRow";
 import { Attraction } from "../models/Attraction";
 
 export class AttractionRepository extends Repository{
@@ -12,7 +13,7 @@ export class AttractionRepository extends Repository{
         try {
             const result = await this.pool.query(query);
 
-            const attractions = result.rows.map((row) => {
+            const attractions = result.rows.map((row: AttractionRow) => {
                 return Attraction.fromRow(row);
             })
 

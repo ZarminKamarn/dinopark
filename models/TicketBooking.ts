@@ -1,3 +1,5 @@
+import { TicketBookingRow } from "../libs/types/TicketBookingRow";
+
 export class TicketBooking{
     private ticket_id: number;
     private booking_id: number | null;
@@ -9,7 +11,7 @@ export class TicketBooking{
         this.quantity = quantity;
     }
 
-    public static fromRow(row): TicketBooking{
+    public static fromRow(row: TicketBookingRow): TicketBooking{
         return new TicketBooking(row.ticket_id, row.booking_id, row.quantity);
     }
 

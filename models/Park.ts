@@ -1,3 +1,5 @@
+import { ParkRow } from "../libs/types/ParkRow"
+
 export class Park{
     private id: number | null;
     private name: string;
@@ -13,7 +15,7 @@ export class Park{
         this.closing_time = closing_time.slice(0,5);
     }
 
-    public static fromRow(row): Park{
+    public static fromRow(row: ParkRow): Park{
         return new Park(row.id, row.name, row.capacity, row.opening_time, row.closing_time);
     }
 
