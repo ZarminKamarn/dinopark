@@ -2,29 +2,33 @@
 <%- include("../partials/header") %>
 
 <main>
-    <section>
+    <section class="read-section
+    <% if(attraction.getParkId() === 2){ %>
+        bg-sea
+    <% } else { %>
+        bg-land
+    <% } %>
+    ">
         <a href="/attraction" class="btn end-line-btn">Retour</a>
-        <div>
+        <div class="read-card">
             <h2><%= attraction.getName() %></h2>
-            <div>
-                <p>Taille minimale : <%= attraction.getMinHeight() %> cm</p>
+            <div class="read-card-content">
+                <p class="read-card-info">Taille minimale : <%= attraction.getMinHeight() %> cm</p>
                 <% if(attraction.getChildrenAreAllowed()){ %>
-                    <p>Pour toute la famille</p>
+                    <p class="read-card-info">Pour toute la famille</p>
                 <% } else { %>
-                    <p>Les enfants ne sont pas autorisés</p>
+                    <p class="read-card-info">Les enfants ne sont pas autorisés</p>
                 <% } %>
-                <p><%= attraction.getType() %></p>
+                <p class="read-card-info"><%= attraction.getType() %></p>
             </div>
-            <div>
-                <img src="<%= attraction.getImage() %>" alt="photo de l'attraction">
-            </div>
+            <img src="/assets/<%= attraction.getImage() %>" alt="photo de l'attraction" class="read-card-image">
         </div>
     </section>
-    <section>
+    <section class="browse-section">
         <h2>Les dinosaures de notre attraction</h2>
-        <ul>
+        <ul class="browse-list">
             <% dinosaurs.forEach((dino) => { %>
-            <li>
+            <li class="browse-card">
                 <%- include("../partials/browseCard", { data: dino, image: dino.getImage(), link: "/dinosaur" }) %>
             </li>
             <% }) %>

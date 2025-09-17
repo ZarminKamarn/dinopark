@@ -1,19 +1,17 @@
 <%- include("../partials/head", {title: "truc"}) %>
 <%- include("../partials/header") %>
 
-<main>
-    <section>
-        <a href="/dinosaur" class="btn end-line-btn">Retour</a>
-        <div>
-            <h2><%= dinosaur.getName() %></h2>
-            <div>
-                <p><%= dinosaur.getDescription() %></p>
-                <% if(dinosaur.getImage()) { %>
-                    <img src="<%= dinosaur.getImage() %>" alt="photo du dinosaure">
-                <% } %>
-            </div>
+<main class="read-section">
+    <a href="/dinosaur" class="btn end-line-btn">Retour</a>
+    <div class="read-card">
+        <h2><%= dinosaur.getName() %></h2>
+        <div class="read-card-content">
+            <p class="read-card-text"><%= dinosaur.getDescription() %></p>
+            <% if(dinosaur.getImage()) { %>
+                <img src="<%= dinosaur.getImage() %>" alt="photo du dinosaure" class="read-card-immg">
+            <% } %>
         </div>
-    </section>
+    </div>
 </main>
 
 <%- include("../partials/footer") %>

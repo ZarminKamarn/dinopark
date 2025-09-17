@@ -13,6 +13,7 @@
     --button-background-color: #2E7D32;
     --read-card-background-color: rgba(0, 0, 0, 0.6);
     --input-background-color: #FFFFFF;
+    --read-card-info-background-color: #A5D6A7;
 
     --div-border-color: #1F4120;
     --button-border-color: #222222;
@@ -29,6 +30,7 @@
 
     --button-corner-radius: 5px;
     --input-corner-radius: 5px;
+    --read-card-info-corner-radius: 20px;
 
     --title-text-size: 40px;
     --footer-text-size: 36px;
@@ -77,6 +79,11 @@ h2{
     font-weight: var(--h2-text-weight);
 }
 
+ul{
+    list-style: none;
+    padding: 0;
+}
+
 .btn{
     background-color: var(--button-background-color);
     color: var(--light-text-color);
@@ -91,6 +98,16 @@ h2{
 
 .end-line-btn{
     align-self: flex-end;
+}
+
+.box-content{
+    width: 100%;
+    background-color: var(--div-background-color);
+    border: var(--div-border-weight) solid var(--div-border-color);
+    box-shadow: var(--div-shadow);
+    padding: 24px 36px;
+    display: flex;
+    color: var(--dark-text-color);
 }
 
 /* --------------------------------------------------
@@ -205,16 +222,6 @@ h2{
     justify-content: center;
 }
 
-.box-content{
-    width: 100%;
-    background-color: var(--div-background-color);
-    border: var(--div-border-weight) solid var(--div-border-color);
-    box-shadow: var(--div-shadow);
-    padding: 24px 36px;
-    display: flex;
-    color: var(--dark-text-color);
-}
-
 .form{
     flex-direction: column;
     gap: 16px;
@@ -281,6 +288,122 @@ input::-webkit-inner-spin-button {
                       BROWSE 
 -------------------------------------------------- */
 
+.browse-section{
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+}
+
+.browse-list{
+    display: flex;
+    flex-direction: row;
+    gap: 36px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 0px 150px;
+}
+
+.browse-list::after{
+    content: "";
+    flex: auto;
+}
+
+.browse-card{
+    width: 250px;
+    height: 250px;
+    background-color: var(--browse-card-background-color);
+}
+
+.card-content{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.browse-card-image{
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+}
+
+.browse-card-bottom{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.browse-card-text{
+    color: var(--light-text-color);
+    font-size: var(--browse-card-text-size);
+    width: fit-content;
+}
+
 /* --------------------------------------------------
                        READ 
 -------------------------------------------------- */
+
+.read-section{
+    padding: 80px 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;    
+}
+
+.bg-sky{
+    background-image: url("/assets/bg_sky.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.bg-land{
+    background-image: url("/assets/bg_leaves.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.bg-sea{
+    background-image: url("/assets/bg_water.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.read-card{
+    background-color: var(--read-card-background-color);
+    backdrop-filter: blur(var(--read-card-blur));
+    color: var(--light-text-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+    padding: 30px 40px;
+}
+
+.read-card h2{
+    color: var(--light-text-color);
+}
+
+.read-card-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 36px;
+}
+
+.read-card-info{
+    padding: 8px 12px;
+    background-color: var(--read-card-info-background-color);
+    color: var(--dark-text-color);
+    border-radius: var(--read-card-info-corner-radius);
+}
+
+.read-card-image{
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+}

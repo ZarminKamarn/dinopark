@@ -2,19 +2,27 @@
 <%- include("../partials/header") %>
 
 <main>
-    <section>
+    <section class="read-section
+    <% if(category.getType() === "Aquatique"){ %>
+        bg-sea
+    <% } else if(category.getType() === "Terrestre") { %>
+        bg-land
+    <% } else { %>
+        bg-sky
+    <% } %>
+    ">
         <a href="/category" class="btn end-line-btn">Retour</a>
-        <div>
+        <div class="read-card">
             <h2><%= category.getName() %></h2>
-            <p>Régime alimentaire : <%= category.getDiet() %></p>
+            <p class="read-card-info">Régime alimentaire : <%= category.getDiet() %></p>
             <p><%= category.getDescription() %></p>
         </div>
     </section>
-    <section>
+    <section class="browse-section">
         <h2>Nos <%= category.getName() %></h2>
-        <ul>
+        <ul class="browse-list">
             <% dinosaurs.forEach((dino) => { %>
-                <li>
+                <li class="browse-card">
                     <%- include("../partials/browseCard", { link: "/dinosaur", image: dino.getImage(), data: dino }) %>
                 </li>
             <% }) %>

@@ -1,11 +1,11 @@
 <%- include("../partials/head", {title: "Attractions" }) %>
 <%- include("../partials/header") %>
 
-<main>
+<main class="browse-section">
   <h2>Nos espèces de dinosaures</h2>
-  <ul>
+  <ul class="browse-list">
     <% categories.forEach((category)=> { %>
-    <li>
+    <li class="browse-card">
       <%- include("../partials/browseCard", { data: category, image, link: "/category" }) %>
     </li>
     <% }) %>

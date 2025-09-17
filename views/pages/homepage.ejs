@@ -35,7 +35,11 @@
         <h2>Nos horaires</h2>
         <ul>
             <% parks.forEach((park) => { %>
-                <li><%= park.getOpeningTime() %> - <%= park.getClosingTime() %></li>
+                <li>
+                    <p><%= park.getName() %></p>
+                    <p>Ouvert tous les jours:</p>
+                    <p><%= park.getOpeningTime() %> - <%= park.getClosingTime() %></p>
+                </li>
             <% }) %>
         </ul>
     </section>
