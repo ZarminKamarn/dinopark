@@ -9,36 +9,74 @@
             <select name="park" id="park" required>
                 <option value="">Sélectionner votre parc</option>
                 <% parks.forEach((park) => { %>
-                    <option value="<%= park.getId() %>"><%= park.getName() %></option>
+                    <option value="<%= park.getId() %>"
+                        <% if(data.park === park.getId().toString()){ %>
+                            selected
+                        <% } %>    
+                    ><%= park.getName() %></option>
                 <% }) %>
             </select>
+            <% if (errors?.park?.errors?.[0]) { %>
+                <small id="title-error" class="error-msg">
+                    <%= errors.park.errors[0] %>
+                </small>
+            <% } %>
         </div>
         <div>
             <label for="ticket1">Nombre de billets</label>
-            <% tickets.forEach((ticket) => { %>
+            <% tickets.forEach((ticket, id) => { %>
                 <div>
-                    <input type="number" name="ticket" id="ticket<%= ticket.getId() %>" required>
+                    <input type="number" name="ticket" id="ticket<%= ticket.getId() %>" required
+                    <% if(data?.ticket) { %>
+                        value="<%= data.ticket[id] || '' %>"
+                    <% } %>
+                    >
                     <p>Billet(s) <%= ticket.getTitle() %> - <%= ticket.getPrice() %> € unité</p>
                 </div>
             <% }) %>
+            <% if (errors?.ticket?.errors?.[0]) { %>
+                <small id="title-error" class="error-msg">
+                    <%= errors.ticket.errors[0] %>
+                </small>
+            <% } %>
         </div>
         <div>
             <label for="bookingDate">Date du billet</label>
-            <input type="date" name="bookingDate" id="bookingDate" required>
+            <input type="date" name="bookingDate" id="bookingDate" value="<%= data?.bookingDate || '' %>" required>
+            <% if (errors?.bookingDate?.errors?.[0]) { %>
+                <small id="title-error" class="error-msg">
+                    <%= errors.bookingDate.errors[0] %>
+                </small>
+            <% } %>
         </div>
         <div>
             <div>
                 <label for="lastName">Nom</label>
-                <input type="text" name="lastName" id="lastName" required>
+                <input type="text" name="lastName" id="lastName" value="<%= data?.lastName || '' %>" required>
+                <% if (errors?.lastName?.errors?.[0]) { %>
+                    <small id="title-error" class="error-msg">
+                        <%= errors.lastName.errors[0] %>
+                    </small>
+                <% } %>
             </div>
             <div>
                 <label for="firstName">Prénom</label>
-                <input type="text" name="firstName" id="firstName" required>
+                <input type="text" name="firstName" id="firstName" value="<%= data?.firstName || '' %>" required>
+                <% if (errors?.firstName?.errors?.[0]) { %>
+                    <small id="title-error" class="error-msg">
+                        <%= errors.firstName.errors[0] %>
+                    </small>
+                <% } %>
             </div>
         </div>
         <div>
             <label for="email">Mail</label>
-            <input type="email" name="email" id="email" required>
+            <input type="email" name="email" id="email" value="<%= data?.email || '' %>" required>
+            <% if (errors?.email?.errors?.[0]) { %>
+                <small id="title-error" class="error-msg">
+                    <%= errors.email.errors[0] %>
+                </small>
+            <% } %>
         </div>
         <button type="submit">Valider</button>
     </form>

@@ -55,7 +55,7 @@ function expiryDateChecker(expiryDate: string): boolean{
 
 export const bookingSchema = z.object({
     park: z.coerce.number("Merci de sélectionner un parc").min(1, "Le parc sélectionné est invalide"),
-    ticket: z.array(z.coerce.number(), "Seuls les nombres sont acceptés pour le nombre de ticket"),
+    ticket: z.array(z.coerce.number().min(0, "Seuls les nombres positifs sont acceptés"), "Seuls les nombres sont acceptés pour le nombre de ticket"),
     bookingDate: z.coerce.date("Date de réservation invalide").min(new Date(), "La réservation doit avoir une date ultérieur à celle du jour"),
     lastName: z.string().min(1, "Le nom est obligatoire").max(50, "Le nom est trop long"),
     firstName: z.string().min(1, "Le prénom est obligatoire").max(50, "Le prénom est trop long"),

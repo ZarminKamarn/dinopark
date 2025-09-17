@@ -3,7 +3,7 @@ import { Controller } from "../libs/Controller";
 import { BookingRow } from "../libs/types/BookingRow";
 import { CustomerRow } from "../libs/types/CustomerRow";
 import { TicketBookingRow } from "../libs/types/TicketBookingRow";
-import { paymentSchema } from "../libs/validation/bookingSchema";
+import { bookingSchema, paymentSchema } from "../libs/validation/bookingSchema";
 import { Booking } from "../models/Booking";
 import { Customer } from "../models/Customer";
 import { Park } from "../models/Park";
@@ -23,10 +23,23 @@ export class BookingController extends Controller {
         const ticketRepository = new TicketRepository();
         const tickets: Array<Ticket> = await ticketRepository.findAll<Ticket>("ticket");
         
-        this.response.render("pages/booking", { parks, tickets });
+        this.response.render("pages/booking", { parks, tickets, errors: "", data: "" });
     }
 
-    public bookingReceived(){
+    public async bookingReceived(){
+        const result = bookingSchema.safeParse(this.request.body);
+        if(!result.success){
+            const parkRepository = new ParkRepository();
+            const parks: Array<Park> = await parkRepository.findAll<Park>("park");
+
+            const ticketRepository = new TicketRepository();
+            const tickets: Array<Ticket> = await ticketRepository.findAll<Ticket>("ticket");
+
+            const errors = z.treeifyError(result.error);
+            this.response.status(400).render("pages/booking", { parks, tickets, errors: errors.properties, data: this.request.body });
+            return;
+        }
+
         const booking: BookingRow = {
             id: null,
             booking_date: new Date().toString(),
@@ -54,6 +67,10 @@ export class BookingController extends Controller {
     }
 
     public async payment(){
+        if(!this.request.session.booking || !this.request.session.tickets || !this.request.session.customer){
+            this.response.redirect("/booking");
+            return;
+        }
         const tickets: Array<TicketBooking> = this.request.session.tickets.map((ticket) => {
             return TicketBooking.fromRow(ticket);
         });
@@ -95,7 +112,7 @@ export class BookingController extends Controller {
     }
 
     public async validation(){        
-        if(this.request.session.booking && this.request.session.tickets){
+        if(this.request.session.booking && this.request.session.tickets && this.request.session.customer){
             const booking: Booking = Booking.fromRow(this.request.session.booking);
             const tickets: Array<TicketBooking> = this.request.session.tickets.map((ticket) => {
                 return TicketBooking.fromRow(ticket);
