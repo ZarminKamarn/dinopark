@@ -4,6 +4,7 @@ import { loginSchema } from "../libs/validation/loginSchema";
 import { Park } from "../models/Park";
 import { ParkRepository } from "../repositories/ParkRepository";
 import { AdminRepository } from "../repositories/AdminRepository";
+import { AdminRow } from "../libs/types/AdminRow";
 
 export class GlobalController extends Controller {
     public async homepage(){
@@ -30,7 +31,12 @@ export class GlobalController extends Controller {
         }
         
         const adminRepository = new AdminRepository();
-        const exists: number = await adminRepository.findIfExists(result.data.email, result.data.password);
+        const admin: AdminRow = {
+            id: null,
+            email: this.request.body.email,
+            password: this.request.body.password
+        }
+        const exists: number = await adminRepository.findIfExists(admin);
 
         if(exists === 0){
             this.response.status(400).render("pages/login", { errors: "", loginError: true, databaseError: false, data: this.request.body });

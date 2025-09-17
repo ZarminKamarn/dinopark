@@ -55,9 +55,25 @@ function expiryDateChecker(expiryDate: string): boolean{
 
 export const bookingSchema = z.object({
     park: z.coerce.number("Merci de sélectionner un parc").min(1, "Le parc sélectionné est invalide"),
-    ticket: z.array(z.coerce.number().min(0, "Seuls les nombres positifs sont acceptés"), "Seuls les nombres sont acceptés pour le nombre de ticket"),
+    ticket: z.array(z.string()).refine(ticketsChecker, "Seuls les nombres positifs ou nuls sont acceptés"),
     bookingDate: z.coerce.date("Date de réservation invalide").min(new Date(), "La réservation doit avoir une date ultérieur à celle du jour"),
     lastName: z.string().min(1, "Le nom est obligatoire").max(50, "Le nom est trop long"),
     firstName: z.string().min(1, "Le prénom est obligatoire").max(50, "Le prénom est trop long"),
     email: z.email("L'email est invalide")
 });
+
+function ticketsChecker(tickets: Array<string>): boolean{
+  let aNumberIsValid: boolean = false;
+  const regex: RegExp = /^[0-9]*$/
+
+  for(const ticket of tickets){
+    if(!regex.test(ticket)){
+      return false;
+    }
+    if(ticket !== ""){
+      aNumberIsValid = true;
+    }
+  }
+  
+  return aNumberIsValid;
+}
