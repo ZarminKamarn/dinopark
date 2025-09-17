@@ -1,0 +1,286 @@
+/* --------------------------------------------------
+                    VARIABLES 
+-------------------------------------------------- */
+
+:root{
+    --background-color: #DDDDDD;
+    --div-background-color: #F2EFEA;
+    --light-text-color: #F2EFEA;
+    --dark-text-color: #222222;
+    --header-background-color: #1F4120;
+    --footer-background-color: #1F4120;
+    --browse-card-background-color: #1F4120;
+    --button-background-color: #2E7D32;
+    --read-card-background-color: rgba(0, 0, 0, 0.6);
+    --input-background-color: #FFFFFF;
+
+    --div-border-color: #1F4120;
+    --button-border-color: #222222;
+    --input-border-color: #CCCCCC;
+    --header-link-hover-color: #FFFFFF;
+
+    --div-border-weight: 2px;
+    --button-border-weight: 3px;
+
+    --div-shadow-color: rgba(31, 65, 32, 0.6);
+    --div-shadow: 4px 4px 4px var(--div-shadow-color);
+
+    --read-card-blur: 20px;
+
+    --button-corner-radius: 5px;
+    --input-corner-radius: 5px;
+
+    --title-text-size: 40px;
+    --footer-text-size: 36px;
+    --h2-text-size: 30px;
+    --button-text-size: 18px;
+    --hero-banner-text-size: 40px;
+    --browse-card-text-size: 20px;
+    --p-text-size: 16px;
+    --label-text-size: 16px;
+    --input-text-size: 14px;
+    --time-div-text-size: 20px;
+    --header-link-text-size: 24px;
+
+    --hero-banner-text-weight: 800;
+    --title-text-weight: 700;
+    --button-text-weight: 600;
+    --h2-text-weight: 600;
+    --bold-text-weight: 600;
+    --header-link-hover-text-weight: 700;
+
+    --read-card-line-height: 24px;
+
+    --text-font-family: inherit;
+}
+
+/* --------------------------------------------------
+                      GLOBALS 
+-------------------------------------------------- */
+
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+a{
+    text-decoration: none;
+}
+
+main{
+    background-color: var(--background-color);
+}
+
+h2{
+    color: var(--dark-text-color);
+    font-size: var(--h2-text-size);
+    font-weight: var(--h2-text-weight);
+}
+
+.btn{
+    background-color: var(--button-background-color);
+    color: var(--light-text-color);
+    font-size: var(--button-text-size);
+    font-weight: var(--button-text-weight);
+    padding: 8px 12px;
+    border-radius: var(--button-corner-radius);
+    border: var(--button-border-weight) solid var(--button-border-color);
+    cursor: pointer;
+    width: fit-content;
+}
+
+.end-line-btn{
+    align-self: flex-end;
+}
+
+/* --------------------------------------------------
+                       HEADER 
+-------------------------------------------------- */
+
+.header{
+    background-color: var(--header-background-color);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 36px;
+}
+
+.header-title{
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+}
+
+.header-title-text{
+    color: var(--light-text-color);
+    font-size: var(--title-text-size);
+    font-weight: var(--title-text-weight);
+}
+
+.header-logo{
+    width: 50px;
+    height: 50px;
+}
+
+.header-link{
+    font-size: var(--header-link-text-size);
+    color: var(--light-text-color);
+}
+
+.header-link:hover{
+    font-weight: var(--header-link-hover-text-weight);
+    color: var(--header-link-hover-color);
+}
+
+.header-links{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+/* --------------------------------------------------
+                       FOOTER 
+-------------------------------------------------- */
+
+.footer{
+    background-color: var(--footer-background-color);
+    padding: 48px 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.footer-title{
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+}
+
+.footer-title-text{
+    color: var(--light-text-color);
+    font-size: var(--footer-text-size);
+    font-weight: var(--title-text-weight);
+}
+
+.footer-logo{
+    width: 40px;
+    height: 40px;
+}
+
+.footer-legal{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.footer-legal a, .footer-text{
+    font-size: var(--p-text-size);
+    color: var(--light-text-color);
+}
+
+.footer-legal a:hover{
+    color: var(--header-link-hover-color);
+    text-decoration: underline;
+}
+
+/* --------------------------------------------------
+                      HOMEPAGE 
+-------------------------------------------------- */
+
+/* --------------------------------------------------
+                       FORMS 
+-------------------------------------------------- */
+
+.form-section{
+    padding: 60px 240px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.box-content{
+    width: 100%;
+    background-color: var(--div-background-color);
+    border: var(--div-border-weight) solid var(--div-border-color);
+    box-shadow: var(--div-shadow);
+    padding: 24px 36px;
+    display: flex;
+    color: var(--dark-text-color);
+}
+
+.form{
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-line{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.form-div{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 4px;
+}
+
+.form-div-in-line{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+}
+
+.form-input{
+    padding: 8px 12px;
+    background-color: var(--input-background-color);
+    border: 1px solid var(--input-border-color);
+    border-radius: var(--input-corner-radius);
+    font-size: var(--input-text-size);
+}
+
+.form-input:focus{
+    outline: 1px solid var(--button-border-color);
+}
+
+/* The next 2 blocs are to hide the arrows
+on number input */
+input[type='number'] {
+    -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.price-section{
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: var(--bold-text-weight);
+}
+
+.form-confirmation{
+    flex-direction: column;
+    line-height: 24px;
+    gap: 16px;
+}
+
+/* --------------------------------------------------
+                      BROWSE 
+-------------------------------------------------- */
+
+/* --------------------------------------------------
+                       READ 
+-------------------------------------------------- */

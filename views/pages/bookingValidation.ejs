@@ -1,15 +1,15 @@
 <%- include("../partials/head", {title: "Réservation"}) %>
 <%- include("../partials/header") %>
 
-<main>
+<main class="form-section">
     <h2>Confirmation de réservation</h2>
-    <section>
+    <section class="form-confirmation box-content">
         <p>Nous confirmons avoir reçu votre réservation pour le <%= date %>.<br>
-            Vous avez réservé vos billets dans le parc <%= park.getName() %><br>
+            Vous avez réservé vos billets dans le parc <%= park.getName() %>.<br>
             Votre montant total est de <%= price %> €.
         </p>
         <p>Si vous pensez que nous avons fait une erreur, merci d'aller vous faire foutre.</p>
-        <a href="/">Retour à l'accueil</a>
+        <a href="/" class="btn">Retour à l'accueil</a>
     </section>
 </main>
 
