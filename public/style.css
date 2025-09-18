@@ -209,6 +209,54 @@ ul{
                       HOMEPAGE 
 -------------------------------------------------- */
 
+.homepage-browse-list{
+    display: flex;
+    flex-direction: row;
+    gap: 36px;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding: 0px 150px;
+}
+
+.hero-banner{
+    width: 100%;
+    height: 500px;
+    padding: 60px 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-image: url("/assets/hero_banner.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.hero-banner-title{
+    color: var(--light-text-color);
+    font-size: var(--hero-banner-text-size);
+    font-weight: var(--hero-banner-text-weight);
+    text-shadow: 5px 5px 4px var(--dark-text-color);
+}
+
+.hours-list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 36px;
+    padding: 0px 60px;
+}
+
+.hour-div{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    max-width: 600px;
+}
+
 /* --------------------------------------------------
                        FORMS 
 -------------------------------------------------- */
@@ -349,28 +397,22 @@ input::-webkit-inner-spin-button {
     padding: 80px 200px;
     display: flex;
     flex-direction: column;
-    gap: 10px;    
+    gap: 10px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 .bg-sky{
     background-image: url("/assets/bg_sky.webp");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
 }
 
 .bg-land{
     background-image: url("/assets/bg_leaves.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
 }
 
 .bg-sea{
     background-image: url("/assets/bg_water.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
 }
 
 .read-card{
@@ -406,4 +448,8 @@ input::-webkit-inner-spin-button {
     width: 100%;
     max-width: 400px;
     height: auto;
+}
+
+.read-card-text{
+    font-size: var(--p-text-size);
 }

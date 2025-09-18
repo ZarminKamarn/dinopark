@@ -3,39 +3,45 @@
 
 <main>
     <section class="hero-banner">
-        <h2>Vivez l'aventure préhistorique !</h2>
-        <div>
-            <a href="/booking" class="btn">Réserver maintenant</a>
-        </div>
+        <h2 class="hero-banner-title">Vivez l'aventure préhistorique !</h2>
+        <a href="/booking" class="btn end-line-btn">Réserver maintenant</a>
     </section>
-    <section class="parks">
+    <section class="browse-section">
         <h2>Nos Parcs</h2>
-        <ul>
+        <ul class="homepage-browse-list">
             <% parks.forEach((park) => { %>
-                <li>
-                    <a href="/park/<%= park.getId() %>"><%= park.getName() %></a>
+                <li class="browse-card">
+                    <a href="/park/<%= park.getId() %>" class="card-content"><%= park.getName() %></a>
                 </li>
             <% }) %>
         </ul>
     </section>
-    <section class="explore">
+    <section class="browse-section">
         <h2>Explorer</h2>
-        <ul>
-            <li>
-                <img src="" alt="Attraction">
-                <a href="/attraction">Nos attractions</a>
+        <ul class="homepage-browse-list">
+            <li class="browse-card">
+                <a href="/attraction"  class="card-content">
+                    <img src="" alt="Attraction" class="browse-card-image">
+                    <div class="browse-card-bottom">
+                        <p class="browse-card-text">Nos attractions</p>
+                    </div>
+                </a>
             </li>
-            <li>
-                <img src="" alt="Dinosaure">
-                <a href="/category">Nos dinosaures</a>
+            <li class="browse-card">
+                <a href="/category"  class="card-content">
+                    <img src="" alt="Dinosaure" class="browse-card-image">
+                    <div class="browse-card-bottom">
+                        <p class="browse-card-text">Nos dinosaures</p>
+                    </div>
+                </a>
             </li>
         </ul>
     </section>
-    <section class="hours">
+    <section class="browse-section">
         <h2>Nos horaires</h2>
-        <ul>
+        <ul class="hours-list">
             <% parks.forEach((park) => { %>
-                <li>
+                <li class="box-content hour-div">
                     <p><%= park.getName() %></p>
                     <p>Ouvert tous les jours:</p>
                     <p><%= park.getOpeningTime() %> - <%= park.getClosingTime() %></p>

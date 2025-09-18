@@ -13,13 +13,13 @@
         <div class="read-card">
             <h2><%= attraction.getName() %></h2>
             <div class="read-card-content">
-                <p class="read-card-info">Taille minimale : <%= attraction.getMinHeight() %> cm</p>
+                <p class="read-card-info read-card-text">Taille minimale : <%= attraction.getMinHeight() %> cm</p>
                 <% if(attraction.getChildrenAreAllowed()){ %>
-                    <p class="read-card-info">Pour toute la famille</p>
+                    <p class="read-card-info read-card-text">Pour toute la famille</p>
                 <% } else { %>
-                    <p class="read-card-info">Les enfants ne sont pas autorisés</p>
+                    <p class="read-card-info read-card-text">Les enfants ne sont pas autorisés</p>
                 <% } %>
-                <p class="read-card-info"><%= attraction.getType() %></p>
+                <p class="read-card-info read-card-text"><%= attraction.getType() %></p>
             </div>
             <img src="/assets/<%= attraction.getImage() %>" alt="photo de l'attraction" class="read-card-image">
         </div>
