@@ -8,7 +8,7 @@
         <div class="read-card-content">
             <p class="read-card-text"><%= dinosaur.getDescription() %></p>
             <% if(dinosaur.getImage()) { %>
-                <img src="<%= dinosaur.getImage() %>" alt="photo du dinosaure" class="read-card-immg">
+                <img src="/assets/<%= dinosaur.getImage() %>" alt="photo du dinosaure" class="read-card-image">
             <% } %>
         </div>
     </div>

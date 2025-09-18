@@ -70,7 +70,7 @@ function ticketsChecker(tickets: Array<string>): boolean{
     if(!regex.test(ticket)){
       return false;
     }
-    if(ticket !== ""){
+    if(ticket !== "" && ticket !== "0"){
       aNumberIsValid = true;
     }
   }

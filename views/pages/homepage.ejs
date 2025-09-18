@@ -11,7 +11,12 @@
         <ul class="homepage-browse-list">
             <% parks.forEach((park) => { %>
                 <li class="browse-card">
-                    <a href="/park/<%= park.getId() %>" class="card-content"><%= park.getName() %></a>
+                    <a href="/park/<%= park.getId() %>" class="card-content">
+                        <img src="/assets/ailes_sauvages.png" alt="<%= park.getName() %>" class="browse-card-image">
+                        <div class="browse-card-bottom">
+                            <p class="browse-card-text"><%= park.getName() %></p>
+                        </div>
+                    </a>
                 </li>
             <% }) %>
         </ul>
@@ -21,7 +26,7 @@
         <ul class="homepage-browse-list">
             <li class="browse-card">
                 <a href="/attraction"  class="card-content">
-                    <img src="" alt="Attraction" class="browse-card-image">
+                    <img src="/assets/terres_sauvages.png" alt="Attraction" class="browse-card-image">
                     <div class="browse-card-bottom">
                         <p class="browse-card-text">Nos attractions</p>
                     </div>

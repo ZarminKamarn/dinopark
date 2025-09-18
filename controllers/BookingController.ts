@@ -42,11 +42,13 @@ export class BookingController extends Controller {
 
         const booking: BookingRow = {
             id: null,
-            booking_date: new Date().toString(),
+            booking_date: new Date().toLocaleString(),
             purchase_date: this.request.body.bookingDate,
             park_id: this.request.body.park,
             customer_id: null
         };
+
+        console.log(booking);
 
         const customer: CustomerRow = {
             id: null,
@@ -102,7 +104,9 @@ export class BookingController extends Controller {
 
             const ticketBookingRepository = new TicketBookingRepository();
             this.request.session.tickets.forEach((ticket) => {
-                ticketBookingRepository.createTicketBooking(ticket, bookingId);
+                if(ticket.quantity > 0){
+                    ticketBookingRepository.createTicketBooking(ticket, bookingId);
+                }
             });
 
             this.response.redirect("/booking/confirmation");

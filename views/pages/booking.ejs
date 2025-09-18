@@ -17,7 +17,7 @@
                 <% }) %>
             </select>
             <% if (errors?.park?.errors?.[0]) { %>
-                <small id="title-error" class="error-msg">
+                <small class="error-msg">
                     <%= errors.park.errors[0] %>
                 </small>
             <% } %>
@@ -35,7 +35,7 @@
                 </div>
             <% }) %>
             <% if (errors?.ticket?.errors?.[0]) { %>
-                <small id="title-error" class="error-msg">
+                <small class="error-msg">
                     <%= errors.ticket.errors[0] %>
                 </small>
             <% } %>
@@ -44,7 +44,7 @@
             <label for="bookingDate">Date du billet</label>
             <input type="date" name="bookingDate" id="bookingDate" value="<%= data?.bookingDate || '' %>" class="form-input" required>
             <% if (errors?.bookingDate?.errors?.[0]) { %>
-                <small id="title-error" class="error-msg">
+                <small class="error-msg">
                     <%= errors.bookingDate.errors[0] %>
                 </small>
             <% } %>
@@ -54,7 +54,7 @@
                 <label for="lastName">Nom</label>
                 <input type="text" name="lastName" id="lastName" value="<%= data?.lastName || '' %>" class="form-input" required>
                 <% if (errors?.lastName?.errors?.[0]) { %>
-                    <small id="title-error" class="error-msg">
+                    <small class="error-msg">
                         <%= errors.lastName.errors[0] %>
                     </small>
                 <% } %>
@@ -63,7 +63,7 @@
                 <label for="firstName">Prénom</label>
                 <input type="text" name="firstName" id="firstName" value="<%= data?.firstName || '' %>" class="form-input" required>
                 <% if (errors?.firstName?.errors?.[0]) { %>
-                    <small id="title-error" class="error-msg">
+                    <small class="error-msg">
                         <%= errors.firstName.errors[0] %>
                     </small>
                 <% } %>
@@ -73,7 +73,7 @@
             <label for="email">Mail</label>
             <input type="email" name="email" id="email" value="<%= data?.email || '' %>" class="form-input" required>
             <% if (errors?.email?.errors?.[0]) { %>
-                <small id="title-error" class="error-msg">
+                <small class="error-msg">
                     <%= errors.email.errors[0] %>
                 </small>
             <% } %>

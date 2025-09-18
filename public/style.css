@@ -19,6 +19,7 @@
     --button-border-color: #222222;
     --input-border-color: #CCCCCC;
     --header-link-hover-color: #FFFFFF;
+    --error-color: #f44336;
 
     --div-border-weight: 2px;
     --button-border-weight: 3px;
@@ -322,7 +323,6 @@ ul{
     border: 1px solid var(--input-border-color);
     border-radius: var(--input-corner-radius);
     font-size: var(--input-text-size);
-    width: 100%;
 }
 
 .form-input:focus{
@@ -351,6 +351,11 @@ input::-webkit-inner-spin-button {
     flex-direction: column;
     line-height: 24px;
     gap: 16px;
+}
+
+.error-msg{
+    font-size: 14px;
+    color: var(--error-color);
 }
 
 /* --------------------------------------------------
@@ -455,6 +460,7 @@ input::-webkit-inner-spin-button {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
     gap: 36px;
 }
@@ -484,6 +490,10 @@ input::-webkit-inner-spin-button {
 
     .form-line{
         flex-direction: column;
+    }
+
+    .form-input{
+        width: 100%;
     }
 
     .box-content{
