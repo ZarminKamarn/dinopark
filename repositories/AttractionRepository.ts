@@ -1,5 +1,5 @@
 import { Repository } from "../libs/Repository";
-import { AttractionRow } from "../libs/types/attractionRow";
+import { AttractionRow } from "../libs/types/AttractionRow";
 import { Attraction } from "../models/Attraction";
 
 export class AttractionRepository extends Repository{

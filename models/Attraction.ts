@@ -1,4 +1,4 @@
-import { AttractionRow } from "../libs/types/attractionRow";
+import { AttractionRow } from "../libs/types/AttractionRow";
 
 export class Attraction{
     private id: number | null;

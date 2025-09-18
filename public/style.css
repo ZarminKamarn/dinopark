@@ -154,7 +154,23 @@ ul{
 .header-links{
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 20px;
+}
+
+.nav-bar-button{
+    display: none;
+    background: transparent;
+    padding: 0px;
+    border: none;
+}
+
+.header-mobile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
 /* --------------------------------------------------
@@ -192,12 +208,15 @@ ul{
 .footer-legal{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 20px;
 }
 
 .footer-legal a, .footer-text{
     font-size: var(--p-text-size);
     color: var(--light-text-color);
+    text-align: center;
 }
 
 .footer-legal a:hover{
@@ -294,6 +313,7 @@ ul{
     flex-direction: row;
     gap: 8px;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .form-input{
@@ -302,6 +322,7 @@ ul{
     border: 1px solid var(--input-border-color);
     border-radius: var(--input-corner-radius);
     font-size: var(--input-text-size);
+    width: 100%;
 }
 
 .form-input:focus{
@@ -434,6 +455,7 @@ input::-webkit-inner-spin-button {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 36px;
 }
 
@@ -442,6 +464,7 @@ input::-webkit-inner-spin-button {
     background-color: var(--read-card-info-background-color);
     color: var(--dark-text-color);
     border-radius: var(--read-card-info-corner-radius);
+    text-align: center;
 }
 
 .read-card-image{
@@ -452,4 +475,60 @@ input::-webkit-inner-spin-button {
 
 .read-card-text{
     font-size: var(--p-text-size);
+}
+
+@media screen and (max-width: 992px) {
+    .form-section{
+        padding: 60px 20px;
+    }
+
+    .form-line{
+        flex-direction: column;
+    }
+
+    .box-content{
+        padding: 8px 12px;
+    }
+
+    .read-section{
+        padding: 80px 20px;
+    }
+
+    .read-card{
+        padding: 30px 20px;
+    }
+
+    .browse-list{
+        padding: 0px 20px;
+    }
+
+    .browse-section{
+        padding: 60px 20px;
+    }
+
+    .homepage-browse-list{
+        padding: 0px 20px;
+    }
+
+    .hero-banner{
+        padding: 60px 40px;
+    }
+
+    .hours-list{
+        padding: 0px 20px;
+    }
+
+    .header{
+        padding: 12px 8px;
+        flex-direction: column;
+    }
+
+    .nav-bar-button {
+        display: inline-block;
+    }
+
+    .header-links {
+        display: none;
+        flex-direction: column;
+    }
 }

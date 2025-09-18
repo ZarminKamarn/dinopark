@@ -4,18 +4,24 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c",
     "dev": "tsx watch index.ts",
     "start": "tsx index.ts"
   },
   "author": "",
   "license": "ISC",
   "description": "",
+  "type": "module",
   "dependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.4",
     "dotenv": "^17.2.2",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-session": "^1.18.2",
     "pg": "^8.16.3",
+    "rollup": "^4.50.2",
+    "tslib": "^2.8.1",
     "tsx": "^4.20.5",
     "typescript": "^5.9.2",
     "zod": "^4.1.5"
