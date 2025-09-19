@@ -4,29 +4,28 @@ import { GlobalController } from "../controllers/GobalController";
 const globalRouter: Router = Router();
 
 globalRouter.get("/", (request, response) => {
-    const globalController = new GlobalController(request, response);
-    globalController.homepage();
+  const globalController = new GlobalController(request, response);
+  globalController.homepage();
 });
 
 globalRouter.get("/easter-egg", (request, response) => {
-    const globalController = new GlobalController(request, response);
-    globalController.easterEgg();
+  const globalController = new GlobalController(request, response);
+  globalController.easterEgg();
 });
 
 globalRouter.get("/login", (request, response) => {
-    const globalController = new GlobalController(request, response);
-    globalController.login();
+  const globalController = new GlobalController(request, response);
+  globalController.login();
 });
 
 globalRouter.post("/login", (request, response) => {
-    const globalController = new GlobalController(request, response);
-    globalController.loginReceived();
+  const globalController = new GlobalController(request, response);
+  globalController.loginReceived();
 });
 
-
 globalRouter.get("/stats", (request, response) => {
-    const globalController = new GlobalController(request, response);
-    globalController.stats();
+  const globalController = new GlobalController(request, response);
+  globalController.stats();
 });
 
 export default globalRouter;

@@ -2,24 +2,24 @@ import { Repository } from "../libs/Repository";
 import { AttractionRow } from "../libs/types/AttractionRow";
 import { Attraction } from "../models/Attraction";
 
-export class AttractionRepository extends Repository{
-    async findByPark(park_id: string): Promise<Array<Attraction>> {
-        const query = {
-            name: "fetch-attraction-by-park",
-            text: `SELECT * FROM attraction WHERE park_id = $1`,
-            values: [park_id],
-        };
+export class AttractionRepository extends Repository {
+  async findByPark(park_id: string): Promise<Array<Attraction>> {
+    const query = {
+      name: "fetch-attraction-by-park",
+      text: `SELECT * FROM attraction WHERE park_id = $1`,
+      values: [park_id],
+    };
 
-        try {
-            const result = await this.pool.query(query);
+    try {
+      const result = await this.pool.query(query);
 
-            const attractions = result.rows.map((row: AttractionRow) => {
-                return Attraction.fromRow(row);
-            })
+      const attractions = result.rows.map((row: AttractionRow) => {
+        return Attraction.fromRow(row);
+      });
 
-            return attractions;
-        } catch (error) {
-            return [];
-        }
+      return attractions;
+    } catch (error) {
+      return [];
     }
+  }
 }

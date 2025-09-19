@@ -2,15 +2,15 @@
 <%- include("../partials/header") %>
 
 <main class="form-section">
-    <h2>Tableau de bord</h2>
-    <section class="box-content stat-div">
-        <h3>Statistiques de visiteurs - 7 derniers jours</h3>
-        <ul>
-            <% dates.forEach((date) => { %>
-                <li><%= date %> : ? visiteurs</li>
-            <% }) %>
-        </ul>
-    </section>
+  <h2>Tableau de bord</h2>
+  <section class="box-content stat-div">
+    <h3>Statistiques de visiteurs - 7 derniers jours</h3>
+    <ul>
+      <% dates.forEach((date) => { %>
+      <li><%= date %> : ? visiteurs</li>
+      <% }) %>
+    </ul>
+  </section>
 </main>
 
 <%- include("../partials/footer") %>

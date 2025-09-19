@@ -2,58 +2,58 @@
 <%- include("../partials/header") %>
 
 <main>
-    <section class="hero-banner">
-        <h2 class="hero-banner-title">Vivez l'aventure préhistorique !</h2>
-        <a href="/booking" class="btn end-line-btn">Réserver maintenant</a>
-    </section>
-    <section class="browse-section">
-        <h2>Nos Parcs</h2>
-        <ul class="homepage-browse-list">
-            <% parks.forEach((park) => { %>
-                <li class="browse-card">
-                    <a href="/park/<%= park.getId() %>" class="card-content">
-                        <img src="/assets/ailes_sauvages.png" alt="<%= park.getName() %>" class="browse-card-image">
-                        <div class="browse-card-bottom">
-                            <p class="browse-card-text"><%= park.getName() %></p>
-                        </div>
-                    </a>
-                </li>
-            <% }) %>
-        </ul>
-    </section>
-    <section class="browse-section">
-        <h2>Explorer</h2>
-        <ul class="homepage-browse-list">
-            <li class="browse-card">
-                <a href="/attraction"  class="card-content">
-                    <img src="/assets/terres_sauvages.png" alt="Attraction" class="browse-card-image">
-                    <div class="browse-card-bottom">
-                        <p class="browse-card-text">Nos attractions</p>
-                    </div>
-                </a>
-            </li>
-            <li class="browse-card">
-                <a href="/category"  class="card-content">
-                    <img src="/assets/allosaurus.webp" alt="Dinosaure" class="browse-card-image">
-                    <div class="browse-card-bottom">
-                        <p class="browse-card-text">Nos dinosaures</p>
-                    </div>
-                </a>
-            </li>
-        </ul>
-    </section>
-    <section class="browse-section">
-        <h2>Nos horaires</h2>
-        <ul class="hours-list">
-            <% parks.forEach((park) => { %>
-                <li class="box-content hour-div">
-                    <p><%= park.getName() %></p>
-                    <p>Ouvert tous les jours:</p>
-                    <p><%= park.getOpeningTime() %> - <%= park.getClosingTime() %></p>
-                </li>
-            <% }) %>
-        </ul>
-    </section>
+  <section class="hero-banner">
+    <h2 class="hero-banner-title">Vivez l'aventure préhistorique !</h2>
+    <a href="/booking" class="btn end-line-btn">Réserver maintenant</a>
+  </section>
+  <section class="browse-section">
+    <h2>Nos Parcs</h2>
+    <ul class="homepage-browse-list">
+      <% parks.forEach((park) => { %>
+      <li class="browse-card">
+        <a href="/park/<%= park.getId() %>" class="card-content">
+          <img src="/assets/ailes_sauvages.png" alt="<%= park.getName() %>" class="browse-card-image">
+          <div class="browse-card-bottom">
+            <p class="browse-card-text"><%= park.getName() %></p>
+          </div>
+        </a>
+      </li>
+      <% }) %>
+    </ul>
+  </section>
+  <section class="browse-section">
+    <h2>Explorer</h2>
+    <ul class="homepage-browse-list">
+      <li class="browse-card">
+        <a href="/attraction" class="card-content">
+          <img src="/assets/terres_sauvages.png" alt="Attraction" class="browse-card-image">
+          <div class="browse-card-bottom">
+            <p class="browse-card-text">Nos attractions</p>
+          </div>
+        </a>
+      </li>
+      <li class="browse-card">
+        <a href="/category" class="card-content">
+          <img src="/assets/allosaurus.webp" alt="Dinosaure" class="browse-card-image">
+          <div class="browse-card-bottom">
+            <p class="browse-card-text">Nos dinosaures</p>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </section>
+  <section class="browse-section">
+    <h2>Nos horaires</h2>
+    <ul class="hours-list">
+      <% parks.forEach((park) => { %>
+      <li class="box-content hour-div">
+        <p><%= park.getName() %></p>
+        <p>Ouvert tous les jours:</p>
+        <p><%= park.getOpeningTime() %> - <%= park.getClosingTime() %></p>
+      </li>
+      <% }) %>
+    </ul>
+  </section>
 </main>
 
 <%- include("../partials/footer") %>

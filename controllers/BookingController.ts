@@ -11,144 +11,209 @@ import { Ticket } from "../models/Ticket";
 import { TicketBooking } from "../models/TicketBooking";
 import { BookingRepository } from "../repositories/BookingRepository";
 import { CustomerRepository } from "../repositories/CustomerRepository";
-import { ParkRepository } from "../repositories/ParkRepository"
+import { ParkRepository } from "../repositories/ParkRepository";
 import { TicketBookingRepository } from "../repositories/TicketBookingRepository";
-import { TicketRepository } from "../repositories/TicketRepository"
+import { TicketRepository } from "../repositories/TicketRepository";
 
 export class BookingController extends Controller {
-    public async booking(){
-        const parkRepository = new ParkRepository();
-        const parks: Array<Park> = await parkRepository.findAll<Park>("park");
+  public async booking() {
+    const parkRepository = new ParkRepository();
+    const parks: Array<Park> = await parkRepository.findAll<Park>("park");
 
-        const ticketRepository = new TicketRepository();
-        const tickets: Array<Ticket> = await ticketRepository.findAll<Ticket>("ticket");
-        
-        this.response.render("pages/booking", { parks, tickets, errors: "", data: "" });
+    const ticketRepository = new TicketRepository();
+    const tickets: Array<Ticket> = await ticketRepository.findAll<Ticket>(
+      "ticket"
+    );
+
+    this.response.render("pages/booking", {
+      parks,
+      tickets,
+      errors: "",
+      data: "",
+    });
+  }
+
+  public async bookingReceived() {
+    const result = bookingSchema.safeParse(this.request.body);
+    if (!result.success) {
+      const parkRepository = new ParkRepository();
+      const parks: Array<Park> = await parkRepository.findAll<Park>("park");
+
+      const ticketRepository = new TicketRepository();
+      const tickets: Array<Ticket> = await ticketRepository.findAll<Ticket>(
+        "ticket"
+      );
+
+      const errors = z.treeifyError(result.error);
+      this.response
+        .status(400)
+        .render("pages/booking", {
+          parks,
+          tickets,
+          errors: errors.properties,
+          data: this.request.body,
+        });
+      return;
     }
 
-    public async bookingReceived(){
-        const result = bookingSchema.safeParse(this.request.body);
-        if(!result.success){
-            const parkRepository = new ParkRepository();
-            const parks: Array<Park> = await parkRepository.findAll<Park>("park");
+    const booking: BookingRow = {
+      id: null,
+      booking_date: new Date().toLocaleString(),
+      purchase_date: this.request.body.bookingDate,
+      park_id: this.request.body.park,
+      customer_id: null,
+    };
 
-            const ticketRepository = new TicketRepository();
-            const tickets: Array<Ticket> = await ticketRepository.findAll<Ticket>("ticket");
+    console.log(booking);
 
-            const errors = z.treeifyError(result.error);
-            this.response.status(400).render("pages/booking", { parks, tickets, errors: errors.properties, data: this.request.body });
-            return;
-        }
+    const customer: CustomerRow = {
+      id: null,
+      first_name: this.request.body.firstName,
+      last_name: this.request.body.lastName,
+      email: this.request.body.email,
+    };
 
-        const booking: BookingRow = {
-            id: null,
-            booking_date: new Date().toLocaleString(),
-            purchase_date: this.request.body.bookingDate,
-            park_id: this.request.body.park,
-            customer_id: null
+    const tickets: Array<TicketBookingRow> = this.request.body.ticket.map(
+      (ticketNumber: string, id: number): TicketBookingRow => {
+        return {
+          ticket_id: id + 1,
+          booking_id: null,
+          quantity: parseInt(ticketNumber),
         };
+      }
+    );
 
-        console.log(booking);
+    this.request.session.booking = booking;
+    this.request.session.customer = customer;
+    this.request.session.tickets = tickets;
 
-        const customer: CustomerRow = {
-            id: null,
-            first_name: this.request.body.firstName,
-            last_name: this.request.body.lastName,
-            email: this.request.body.email
-        }
+    this.response.redirect("/booking/payment");
+  }
 
-        const tickets: Array<TicketBookingRow> = this.request.body.ticket.map((ticketNumber: string, id: number): TicketBookingRow => {
-            return {ticket_id: id+1 , booking_id: null, quantity: parseInt(ticketNumber)};
+  public async payment() {
+    if (
+      !this.request.session.booking ||
+      !this.request.session.tickets ||
+      !this.request.session.customer
+    ) {
+      this.response.redirect("/booking");
+      return;
+    }
+    const tickets: Array<TicketBooking> = this.request.session.tickets.map(
+      (ticket) => {
+        return TicketBooking.fromRow(ticket);
+      }
+    );
+    const price = await this.calculateTicketsPrice(tickets);
+
+    this.response.render("pages/bookingPayment", {
+      price,
+      errors: "",
+      data: "",
+    });
+  }
+
+  public async paymentReceived() {
+    const result = paymentSchema.safeParse(this.request.body);
+
+    const tickets: Array<TicketBooking> = this.request.session.tickets.map(
+      (ticket) => {
+        return TicketBooking.fromRow(ticket);
+      }
+    );
+    const price = await this.calculateTicketsPrice(tickets);
+
+    if (!result.success) {
+      const errors = z.treeifyError(result.error);
+      this.response
+        .status(400)
+        .render("pages/bookingPayment", {
+          price,
+          errors: errors.properties,
+          data: this.request.body,
         });
-
-        this.request.session.booking = booking;
-        this.request.session.customer = customer;
-        this.request.session.tickets = tickets;
-
-        this.response.redirect("/booking/payment");
+      return;
     }
 
-    public async payment(){
-        if(!this.request.session.booking || !this.request.session.tickets || !this.request.session.customer){
-            this.response.redirect("/booking");
-            return;
+    if (
+      this.request.session.customer &&
+      this.request.session.booking &&
+      this.request.session.tickets
+    ) {
+      const customerRepository = new CustomerRepository();
+      const customerId: number = await customerRepository.createCustomer(
+        this.request.session.customer
+      );
+
+      const bookingRepository = new BookingRepository();
+      const bookingId: number = await bookingRepository.createBooking(
+        this.request.session.booking,
+        customerId
+      );
+
+      const ticketBookingRepository = new TicketBookingRepository();
+      this.request.session.tickets.forEach((ticket) => {
+        if (ticket.quantity > 0) {
+          ticketBookingRepository.createTicketBooking(ticket, bookingId);
         }
-        const tickets: Array<TicketBooking> = this.request.session.tickets.map((ticket) => {
-            return TicketBooking.fromRow(ticket);
-        });
-        const price = await this.calculateTicketsPrice(tickets);
+      });
 
-        this.response.render("pages/bookingPayment", { price, errors: "", data: "" });
+      this.response.redirect("/booking/confirmation");
+      return;
     }
+    this.response.redirect("/booking");
+  }
 
-    public async paymentReceived(){
-        const result = paymentSchema.safeParse(this.request.body);
-
-        const tickets: Array<TicketBooking> = this.request.session.tickets.map((ticket) => {
-            return TicketBooking.fromRow(ticket);
-        });
-        const price = await this.calculateTicketsPrice(tickets);
-
-        if(!result.success){
-            const errors = z.treeifyError(result.error);
-            this.response.status(400).render("pages/bookingPayment", { price, errors: errors.properties, data: this.request.body });
-            return;
+  public async validation() {
+    if (
+      this.request.session.booking &&
+      this.request.session.tickets &&
+      this.request.session.customer
+    ) {
+      const booking: Booking = Booking.fromRow(this.request.session.booking);
+      const tickets: Array<TicketBooking> = this.request.session.tickets.map(
+        (ticket) => {
+          return TicketBooking.fromRow(ticket);
         }
+      );
 
-        if(this.request.session.customer && this.request.session.booking && this.request.session.tickets){
-            const customerRepository = new CustomerRepository();
-            const customerId: number = await customerRepository.createCustomer(this.request.session.customer);
+      const parkRepository = new ParkRepository();
+      const park: Park | null = await parkRepository.findById<Park>(
+        "park",
+        booking.getParkId().toString()
+      );
 
-            const bookingRepository = new BookingRepository();
-            const bookingId: number = await bookingRepository.createBooking(this.request.session.booking, customerId);
+      const price = await this.calculateTicketsPrice(tickets);
 
-            const ticketBookingRepository = new TicketBookingRepository();
-            this.request.session.tickets.forEach((ticket) => {
-                if(ticket.quantity > 0){
-                    ticketBookingRepository.createTicketBooking(ticket, bookingId);
-                }
-            });
+      this.response.render("pages/bookingValidation", {
+        park,
+        price,
+        date: booking.getReadableBookingDate(),
+      });
 
-            this.response.redirect("/booking/confirmation");
-            return;
-        }
-        this.response.redirect("/booking");
+      this.request.session.destroy(() => {});
+      return;
     }
 
-    public async validation(){        
-        if(this.request.session.booking && this.request.session.tickets && this.request.session.customer){
-            const booking: Booking = Booking.fromRow(this.request.session.booking);
-            const tickets: Array<TicketBooking> = this.request.session.tickets.map((ticket) => {
-                return TicketBooking.fromRow(ticket);
-            });
+    this.response.redirect("/booking");
+  }
 
-            const parkRepository = new ParkRepository();
-            const park: Park | null = await parkRepository.findById<Park>("park", booking.getParkId().toString());
+  private async calculateTicketsPrice(
+    ticketBookings: Array<TicketBooking>
+  ): Promise<number> {
+    const ticketRepository = new TicketRepository();
+    const tickets: Array<Ticket> | null =
+      await ticketRepository.findAll<Ticket>("ticket");
 
-            const price = await this.calculateTicketsPrice(tickets);
-
-            this.response.render("pages/bookingValidation", { park, price, date: booking.getReadableBookingDate()});
-
-            this.request.session.destroy(() => {});
-            return;
-        }
-
-        this.response.redirect("/booking");
-    }
-
-    private async calculateTicketsPrice(ticketBookings: Array<TicketBooking>): Promise<number>{
-        const ticketRepository = new TicketRepository();
-        const tickets: Array<Ticket> | null = await ticketRepository.findAll<Ticket>("ticket");
-
-        let sum = 0;
-        ticketBookings.forEach((ticketBooking) => {
-            const ticket: Ticket | undefined = tickets.find((aTicket) => {
-                return aTicket.getId() === ticketBooking.getTicketId();
-            })
-            if(ticket){
-                sum += ticket.getPrice() * ticketBooking.getQuantity();
-            }
-        });
-        return sum;
-    }
+    let sum = 0;
+    ticketBookings.forEach((ticketBooking) => {
+      const ticket: Ticket | undefined = tickets.find((aTicket) => {
+        return aTicket.getId() === ticketBooking.getTicketId();
+      });
+      if (ticket) {
+        sum += ticket.getPrice() * ticketBooking.getQuantity();
+      }
+    });
+    return sum;
+  }
 }

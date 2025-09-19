@@ -2,14 +2,14 @@
 <%- include("../partials/header") %>
 
 <main class="browse-section">
-    <h2>Nos dinosaures</h2>
-    <ul class="browse-list">
-        <% dinosaurs.forEach((dinosaur) => { %>
-            <li class="browse-card">
-                <%- include("../partials/browseCard", { data: dinosaur, image: dinosaur.getImage(), link: "/dinosaur" }) %>
-            </li>
-        <% }) %>
-    </ul>
+  <h2>Nos dinosaures</h2>
+  <ul class="browse-list">
+    <% dinosaurs.forEach((dinosaur) => { %>
+    <li class="browse-card">
+      <%- include("../partials/browseCard", { data: dinosaur, image: dinosaur.getImage(), link: "/dinosaur" }) %>
+    </li>
+    <% }) %>
+  </ul>
 </main>
 
 <%- include("../partials/footer") %>

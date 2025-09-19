@@ -2,35 +2,35 @@
 <%- include("../partials/header") %>
 
 <main class="form-section">
-    <h2>Se connecter</h2>
-    <form action="/login" method="post" class="form box-content">
-        <% if (loginError === true) { %>
-            <small class="error-msg">Identifiants incorrects</small>
-        <% } %>
-        <% if (databaseError === true) { %>
-            <small class="error-msg">Un problème est survenu</small>
-        <% } %>
-        <div class="form-div">
-            <label for="email">Mail</label>
-            <input type="email" id="email" name="email" value="<%= data?.email || '' %>" class="form-input" required>
-            <% if (errors?.email?.errors?.[0]) { %>
-                <small class="error-msg">
-                    <%= errors.email.errors[0] %>
-                </small>
-            <% } %>
-        </div>
-        <div class="form-div">
-            <label for="password">Mot de passe</label>
-            <input type="password" id="password" name="password" class="form-input" required>
-            <% if (errors?.password?.errors?.[0]) { %>
-                <small class="error-msg">
-                    <%= errors.password.errors[0] %>
-                </small>
-            <% } %>
-        </div>
-        <button type="submit" class="btn end-line-btn">Valider</button>
-    </form>
-    <a href="/" class="btn end-line-btn">Annuler</a>
+  <h2>Se connecter</h2>
+  <form action="/login" method="post" class="form box-content">
+    <% if (loginError === true) { %>
+    <small class="error-msg">Identifiants incorrects</small>
+    <% } %>
+    <% if (databaseError === true) { %>
+    <small class="error-msg">Un problème est survenu</small>
+    <% } %>
+    <div class="form-div">
+      <label for="email">Mail</label>
+      <input type="email" id="email" name="email" value="<%= data?.email || '' %>" class="form-input" required>
+      <% if (errors?.email?.errors?.[0]) { %>
+      <small class="error-msg">
+        <%= errors.email.errors[0] %>
+      </small>
+      <% } %>
+    </div>
+    <div class="form-div">
+      <label for="password">Mot de passe</label>
+      <input type="password" id="password" name="password" class="form-input" required>
+      <% if (errors?.password?.errors?.[0]) { %>
+      <small class="error-msg">
+        <%= errors.password.errors[0] %>
+      </small>
+      <% } %>
+    </div>
+    <button type="submit" class="btn end-line-btn">Valider</button>
+  </form>
+  <a href="/" class="btn end-line-btn">Annuler</a>
 </main>
 
 <%- include("../partials/footer") %>

@@ -1,29 +1,29 @@
 import { TicketRow } from "../libs/types/TicketRow";
 
-export class Ticket{
-    private id: number | null;
-    private title: string;
-    private price: number;
+export class Ticket {
+  private id: number | null;
+  private title: string;
+  private price: number;
 
-    constructor(id: number | null, title: string, price: number){
-        this.id = id;
-        this.title = title;
-        this.price = price;
-    }
+  constructor(id: number | null, title: string, price: number) {
+    this.id = id;
+    this.title = title;
+    this.price = price;
+  }
 
-    public static fromRow(row: TicketRow): Ticket{
-        return new Ticket(row.id, row.title, row.price);
-    }
+  public static fromRow(row: TicketRow): Ticket {
+    return new Ticket(row.id, row.title, row.price);
+  }
 
-    public getId(): number | null{
-        return this.id;
-    }
+  public getId(): number | null {
+    return this.id;
+  }
 
-    public getTitle(): string{
-        return this.title;
-    }
+  public getTitle(): string {
+    return this.title;
+  }
 
-    public getPrice(): number{
-        return this.price;
-    }
+  public getPrice(): number {
+    return this.price;
+  }
 }

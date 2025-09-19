@@ -1,4 +1,3 @@
 import { Repository } from "../libs/Repository";
 
-export class ParkRepository extends Repository{
-}
+export class ParkRepository extends Repository {}

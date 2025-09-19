@@ -2,7 +2,7 @@
 <%- include("../partials/header") %>
 
 <main>
-    <section class="read-section
+  <section class="read-section
     <% if(category.getType() === "Aquatique"){ %>
         bg-sea
     <% } else if(category.getType() === "Terrestre") { %>
@@ -11,23 +11,23 @@
         bg-sky
     <% } %>
     ">
-        <a href="/category" class="btn end-line-btn">Retour</a>
-        <div class="read-card">
-            <h2><%= category.getName() %></h2>
-            <p class="read-card-info read-card-text">Régime alimentaire : <%= category.getDiet() %></p>
-            <p class="read-card-text"><%= category.getDescription() %></p>
-        </div>
-    </section>
-    <section class="browse-section">
-        <h2>Nos <%= category.getName() %></h2>
-        <ul class="browse-list">
-            <% dinosaurs.forEach((dino) => { %>
-                <li class="browse-card">
-                    <%- include("../partials/browseCard", { link: "/dinosaur", image: dino.getImage(), data: dino }) %>
-                </li>
-            <% }) %>
-        </ul>
-    </section>
+    <a href="/category" class="btn end-line-btn">Retour</a>
+    <div class="read-card">
+      <h2><%= category.getName() %></h2>
+      <p class="read-card-info read-card-text">Régime alimentaire : <%= category.getDiet() %></p>
+      <p class="read-card-text"><%= category.getDescription() %></p>
+    </div>
+  </section>
+  <section class="browse-section">
+    <h2>Nos <%= category.getName() %></h2>
+    <ul class="browse-list">
+      <% dinosaurs.forEach((dino) => { %>
+      <li class="browse-card">
+        <%- include("../partials/browseCard", { link: "/dinosaur", image: dino.getImage(), data: dino }) %>
+      </li>
+      <% }) %>
+    </ul>
+  </section>
 </main>
 
 <%- include("../partials/footer") %>
