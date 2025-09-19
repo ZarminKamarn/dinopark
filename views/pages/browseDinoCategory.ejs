@@ -6,7 +6,8 @@
   <ul class="browse-list">
     <% categories.forEach((category)=> { %>
     <li class="browse-card">
-      <%- include("../partials/browseCard", { data: category, image, link: "/category" }) %>
+      <% const dinosaur = dinosaurs.find((dino) => {return dino.getCategoryId() === category.getId();}) %>
+      <%- include("../partials/browseCard", { data: category, image: dinosaur.getImage(), link: "/category" }) %>
     </li>
     <% }) %>
   </ul>

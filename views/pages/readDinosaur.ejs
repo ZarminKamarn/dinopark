@@ -1,7 +1,15 @@
 <%- include("../partials/head", {title: "truc"}) %>
 <%- include("../partials/header") %>
 
-<main class="read-section">
+<main class="read-section
+    <% if(type === "Aquatique"){ %>
+        bg-sea
+    <% } else if(type === "Terrestre") { %>
+        bg-land
+    <% } else { %>
+        bg-sky
+    <% } %>
+">
     <a href="/dinosaur" class="btn end-line-btn">Retour</a>
     <div class="read-card">
         <h2><%= dinosaur.getName() %></h2>

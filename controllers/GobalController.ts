@@ -5,6 +5,10 @@ import { Park } from "../models/Park";
 import { ParkRepository } from "../repositories/ParkRepository";
 import { AdminRepository } from "../repositories/AdminRepository";
 import { AdminRow } from "../libs/types/AdminRow";
+import { BookingRepository } from "../repositories/BookingRepository";
+import { Booking } from "../models/Booking";
+import { TicketBookingRepository } from "../repositories/TicketBookingRepository";
+import { TicketBooking } from "../models/TicketBooking";
 
 export class GlobalController extends Controller {
     public async homepage(){
@@ -49,7 +53,18 @@ export class GlobalController extends Controller {
         this.response.redirect("/stats");
     }
 
-    public stats(){
-        this.response.send("Stats");
+    public async stats(){
+        const date7DaysAgo: Date = new Date((new Date()).getDate() - 7);
+        const today: Date = new Date();
+
+        const bookingRepository = new BookingRepository();
+        const bookings: Array<Booking> = await bookingRepository.findBookingsSinceDate(date7DaysAgo.toLocaleString(), today.toLocaleString());
+
+        const dates: Array<string> = bookings.map((booking) => {
+            return booking.getReadableBookingDate();
+        });
+
+        
+        this.response.render("pages/stats", {dates});
     }
 }

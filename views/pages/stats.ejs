@@ -1,9 +1,16 @@
-<%- include("../partials/head", {title: Stats}) %>
+<%- include("../partials/head", {title: "Stats"}) %>
 <%- include("../partials/header") %>
 
-<main>
-    <section></section>
-    <section></section>
+<main class="form-section">
+    <h2>Tableau de bord</h2>
+    <section class="box-content stat-div">
+        <h3>Statistiques de visiteurs - 7 derniers jours</h3>
+        <ul>
+            <% dates.forEach((date) => { %>
+                <li><%= date %> : ? visiteurs</li>
+            <% }) %>
+        </ul>
+    </section>
 </main>
 
 <%- include("../partials/footer") %>

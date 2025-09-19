@@ -9,7 +9,10 @@ export class DinoCategoryController extends Controller {
         const categoryRepository = new DinosaurCategoryRepository();
         const categories: Array<DinosaurCategory> = await categoryRepository.findAll<DinosaurCategory>("dinosaurcategory");
 
-        this.response.render("pages/browseDinoCategory", { categories, image: "" });
+        const dinosaurRepository = new DinosaurRepository();
+        const dinosaurs: Array<Dinosaur> = await dinosaurRepository.findAll<Dinosaur>("dinosaur");
+
+        this.response.render("pages/browseDinoCategory", { categories, dinosaurs});
     }
 
     public async category(){

@@ -1,5 +1,7 @@
 import { Controller } from "../libs/Controller";
 import { Dinosaur } from "../models/Dinosaur";
+import { DinosaurCategory } from "../models/DinosaurCategory";
+import { DinosaurCategoryRepository } from "../repositories/DinosaurCategoryRepository";
 import { DinosaurRepository } from "../repositories/DinosaurRepository";
 
 export class DinosaurController extends Controller {
@@ -8,7 +10,10 @@ export class DinosaurController extends Controller {
         const dinosaur: Dinosaur | null = await dinosaurRepository.findById<Dinosaur>("dinosaur", this.request.params.id);
 
         if(dinosaur){
-            this.response.render("pages/readDinosaur", { dinosaur });
+            const categoryRepository = new DinosaurCategoryRepository();
+            const category: DinosaurCategory | null = await categoryRepository.findById<DinosaurCategory>("dinosaurcategory", dinosaur.getCategoryId().toString());
+
+            this.response.render("pages/readDinosaur", { dinosaur, type: category?.getType() });
             return;
         }
 

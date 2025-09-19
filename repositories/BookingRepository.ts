@@ -1,5 +1,6 @@
 import { Repository } from "../libs/Repository";
 import { BookingRow } from "../libs/types/BookingRow";
+import { Booking } from "../models/Booking";
 
 export class BookingRepository extends Repository{
     public async createBooking(row: BookingRow, customer_id: number): Promise<number>{
@@ -15,6 +16,25 @@ export class BookingRepository extends Repository{
             return parseInt(result.rows[0].id);
         } catch (error) {
             return -1;
+        }
+    }
+
+    public async findBookingsSinceDate(date: string, today: string): Promise<Array<Booking>>{
+        const query = {
+            name: `fetch-booking-since-date`,
+            text: `SELECT * FROM booking WHERE booking_date > $1 AND booking_date <= $2`,
+            values: [date, today]
+        }
+
+        try {
+            const result = await this.pool.query(query);
+
+            const bookings = result.rows.map((row) => {
+                return Booking.fromRow(row);            
+            });
+            return bookings;
+        } catch (error) {
+            return [];
         }
     }
 }

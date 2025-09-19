@@ -483,6 +483,11 @@ input::-webkit-inner-spin-button {
     font-size: var(--p-text-size);
 }
 
+.stat-div{
+    flex-direction: column;
+    gap: 16px;
+}
+
 @media screen and (max-width: 992px) {
     .form-section{
         padding: 60px 20px;

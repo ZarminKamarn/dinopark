@@ -23,4 +23,10 @@ globalRouter.post("/login", (request, response) => {
     globalController.loginReceived();
 });
 
+
+globalRouter.get("/stats", (request, response) => {
+    const globalController = new GlobalController(request, response);
+    globalController.stats();
+});
+
 export default globalRouter;

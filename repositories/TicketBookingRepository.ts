@@ -1,5 +1,6 @@
 import { Repository } from "../libs/Repository";
 import { TicketBookingRow } from "../libs/types/TicketBookingRow";
+import { TicketBooking } from "../models/TicketBooking";
 
 export class TicketBookingRepository extends Repository{
     public async createTicketBooking(row: TicketBookingRow, booking_id: number): Promise<boolean>{
