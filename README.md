@@ -47,7 +47,6 @@ npm run start
 - **Frontend** : HTML, CSS, TypeScript
 - **Backend** : Express
 - **Base de données** : PostgreSQL
-```
 
 ## 📖 Auteur  
 Projet réalisé par Emilie Marion dans le cadre d’une formation **Concepteur Développeur d’Applications**.
